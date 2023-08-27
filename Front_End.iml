@@ -4,5 +4,6 @@
     <exclude-output />
     <content url="file://$MODULE_DIR$/Front_End" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="javax.json-1.1.4" level="project" />
   </component>
 </module>
