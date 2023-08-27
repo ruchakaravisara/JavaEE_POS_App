@@ -1,172 +1,609 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="assets/css/bootstrap.css">
-    <script src="assets/js/bootstrap.js"></script>
-    <script src="../assets/js/bootstrap.js"></script>
-    <link rel="stylesheet" href="../assets/css/bootstrap.css">
+    <title>Purchase Order Manage</title>
+    <meta content="width=device-width initial-scale=1" name="viewport">
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/css/styles.css" rel="stylesheet">
+    <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+          integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" rel="stylesheet">
+    <style>
+        ul > li {
+            cursor: pointer;
+        }
+    </style>
+
 </head>
-<header>
+<body>
+<!--header-->
+<header class="jumbotron justify-content-center text-white p-3">
     <h1 class="position-absolute" id="nav"></h1>
     <ul class="list-group list-group-horizontal text-danger justify-content-end font-weight-bold">
         <li class="list-group-item bg-white" id="lnkHome"><a href="../index.html">Home</a></li>
-        <li class="list-group-item bg-white" id="lnkCustomer"><a href="customer.html">Customer</a></li>
-        <li class="list-group-item bg-white" id="lnkItem"><a  href="item.html">Item</a></li>
-        <li class="list-group-item bg-danger text-white" id="lnkOrders"><a class="text-white" href="purchase-order.html">Orders</a></li>
+        <li class="list-group-item bg-white" id="lnkCustomer"><a href="customer.html">Customer</a>
+        </li>
+        <li class="list-group-item bg-white" id="lnkItem"><a href="item.html">Item</a></li>
+        <li class="list-group-item bg-white" id="lnkOrders"><a href="orders.html">Orders</a></li>
+        <li class="list-group-item bg-danger" id="lnkPlaceOrders"><a class="text-white" href="purchase-order.html">Place Order</a></li>
     </ul>
 </header>
-<body>
-<h2 style="background-color: #dfc2c4" >PlaceOrder</h2>
 
-<div class="row mt-3 border border-dark rounded p-3">
-    <form action="">
-        <div class="row border border-dark rounded p-2">
+<!--order form-->
+<main class="container-fluid" id="orderContent" style="background-color: #20c997">
+    <div class="container-fluid mt-4" style="background-color: #5c636a">
+        <!--main tile-->
+        <div class="justify-content-center">
+            <div class="row">
 
-            <div class="col">
-                <div class="input-group">
-                    <span class="input-group-text">OrderID</span>
-                    <input class="form-control" type="text" placeholder="O001" aria-label="Disabled input example" disabled>
-                </div>
-            </div>
-            <div class="col">
-                <div class="input-group">
-                    <span class="input-group-text">CustomerID</span>
-                    <input class="form-control" type="text" placeholder="C001" aria-label="Disabled input example" disabled>
-                </div>
-            </div>
-            <div class="col">
-                <div class="input-group">
-                    <span class="input-group-text">ItemID</span>
-                    <input class="form-control" type="text" placeholder="I001" aria-label="Disabled input example" disabled>
-                </div>
-            </div>
-            <div class="col">
-                <div class="input-group">
-                    <span class="input-group-text">Quantity</span>
-                    <input class="form-control" type="text" placeholder="10" aria-label="Disabled input example" disabled>
-                </div>
-            </div>
+                <!--Invoice Details-->
+                <div class="justify-content-center">
+                    <div class="card">
+                        <div class="card-header bg-danger justify-content-lg-start">Details</div>
+                        <div class="card-body">
+                            <form>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>Order ID :</label>
+                                            <input class="form-control" id="txtOrderID" type="text" readonly>
+                                            <span class="control-error"
+                                                  id="orderId-invalid-error"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>Date :</label>
+                                            <input class="form-control" id="txtDate" type="date">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>Customer ID:</label>
+                                            <select class="form-control" id="selectCusID"> </select>
+                                            <span class="control-error" id="cus-empty-error"></span>
+                                        </div>
+                                    </div>
 
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>Name :</label>
+                                            <input class="form-control" id="orderCustomerName" type="text" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>Address :</label>
+                                            <input class="form-control" id="orderCustomerAddress" type="text" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!--item-->
+                <div class="col-lg-5 mt-lg-0 mt-3">
+                    <div class="card">
+                        <div class="card-header bg-danger  justify-content-center">Item Select</div>
+                        <div class="card-body">
+                            <form>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>Item :</label>
+                                            <select class="form-control" id="selectItemCode"></select>
+                                            <span class="control-error"
+                                                  id="item-empty-error"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+
+                                    </div>
+                                    <div class="col-5">
+                                        <div class="form-group">
+                                            <label>Item Name :</label>
+                                            <input class="form-control" id="txtItemName" type="text" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label class="">Price :</label>
+                                            <input class="form-control" id="txtItemPrice" type="text" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label class="">QtyOnH :</label>
+                                            <input class="form-control" id="txtQTYOnHand" type="text" readonly>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6 mt-4">
+                                        <div class="form-group">
+                                            <label>Order Quantity :</label>
+                                            <input class="form-control" id="txtQty">
+                                            <span class="control-error" id="order-qty-empty-error"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 mt-4">
+                                        <div class="form-group">
+                                            <label>Total Of Item :</label>
+                                            <input class="form-control" id="TotalOfItem" type="text" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group text-right">
+                                    <button class="btn btn-danger" id="RemoveSelected" type="button" >cancle</button>
+                                    <button class="btn btn-danger col-12 col-sm-auto" id="addToCart" type="button" style="background-color: #20c997">
+                                        Add Item
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-------------->
+
+                <!---- Total ---->
+                <div class="col-lg-3">
+                    <section class="content-box-2 p-4 ">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <span class="" id="total-text">Total : </span>
+                                    </div>
+                                    <div class="col-12">
+                                        <span id="total" style="color: #664d03">0</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <span id="total-text1" style="color: black">SubTotal : </span>
+                                    </div>
+                                    <div class="col-12">
+                                        <span id="subtotal">0</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-6 mt-2">
+                                <div class="form-group">
+                                    <label>Cash</label>
+                                    <input class="form-control" id="txtCash">
+                                    <span class="control-error"
+                                          id="cash-empty-error"></span>
+                                </div>
+                            </div>
+                            <div class="col-6 mt-2">
+                                <div class="form-group">
+                                    <label>Discount</label>
+                                    <input class="form-control" id="txtDiscount">
+                                </div>
+                            </div>
+                            <div class="col-8">
+                                <div class="form-group">
+                                    <label>Balance</label>
+                                    <input class="form-control" id="txtBalance" type="text" readonly>
+                                </div>
+                            </div>
+                            <div class="col-4 mt-4">
+                                <button class="btn btn-success" id="placeOrder" type="button" style="background-color: #5c636a">Purchase</button>
+                            </div>
+
+                        </div>
+                    </section>
+                </div>
+
+
+            </div>
+            <!--order table-->
+            <div class="col-md-12 mt-6 ">
+                <div class="table-responsive mt-2">
+                    <table class="table">
+                        <thead class="bg-danger">
+                        <tr>
+                            <th scope="col">Item Code</th>
+                            <th scope="col">Item Name</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Qty</th>
+                            <th scope="col">Total</th>
+                        </tr>
+                        </thead>
+                        <tbody class="table-group-divider  table-hover" id="cart">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!---------->
         </div>
-        <div class="row mt-5 mb-2 p-3 border border-dark rounded">
-
-            <div class="col">
-                <div class="input-group">
-                    <span class="input-group-text">Date</span>
-                    <input class="form-control" type="text" placeholder="2023-12-12" aria-label="Disabled input example" disabled>
-
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="input-group">
-                    <span class="input-group-text">Total</span>
-                    <input class="form-control" type="text" placeholder="20000" aria-label="Disabled input example" disabled>
-                </div>
-            </div>
-
-
-            <div class="col">
-                <div class="input-group">
-                    <span class="input-group-text">Unit Price</span>
-                    <input class="form-control" type="text" placeholder="" aria-label="Disabled input example" disabled>
-                </div>
-            </div>
-            <div class="col">
-                <div class="input-group">
-                    <span class="input-group-text">Item Name</span>
-                    <input class="form-control" type="text" placeholder="" aria-label="Disabled input example" disabled>
-                </div>
-            </div>
-
-
-        </div>
-
-        <div class="row mt-3">
-            <div class="col-10"></div>
-            <div class="col-2">
-                <button type="button" class="btn btn-primary">Add to Cart</button>
-                <button type="button" class="btn btn-danger">Clear</button>
-            </div>
-        </div>
-
-    </form>
-</div>
-<div class="row mt-3 border border-dark rounded p-3">
-    <div class="row">
-        <table class="table table-striped-columns">
-            <thead>
-            <tr>
-                <th scope="col">Item ID</th>
-                <th scope="col">Quantity</th>
-                <th scope="col">ItemName</th>
-                <th scope="col">Unit Price</th>
-                <th scope="col">Total</th>
-
-            </tr>
-            </thead>
-            <tbody>
-
-            <tr>
-                <th scope="col">I001</th>
-                <th scope="col">1</th>
-                <th scope="col">sugar</th>
-                <th scope="col">300</th>
-                <th scope="col">300</th>
-
-            </tr>
-            <tr>
-                <th scope="col">I001</th>
-                <th scope="col">1</th>
-                <th scope="col">sugar</th>
-                <th scope="col">300</th>
-                <th scope="col">300</th>
-
-            </tr>
-
-
-
-            </tbody>
-        </table>
     </div>
-    <form action="">
-        <div class="row mt-3">
+</main>
 
-            <div class="col">
-                <div class="input-group">
-                    <span class="input-group-text">Total-Rs:</span>
-                    <input class="form-control" type="text" placeholder="" aria-label="Disabled input example" disabled>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="input-group">
-                    <span class="input-group-text">Discount-Rs:</span>
-                    <input class="form-control" type="number" placeholder="" aria-label="Disabled input example">
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="input-group">
-                    <span class="input-group-text">Sub Tot-Rs:</span>
-                    <input class="form-control" type="text" placeholder="" aria-label="Disabled input example" disabled>
-                </div>
-            </div>
-        </div>
-    </form>
-    <div class="row mt-3">
-        <div class="col-10"></div>
-        <div class="col-2">
-            <button type="button" class="btn btn-success">Purchase</button>
-            <button type="button" class="btn btn-danger">Cancel</button>
-        </div>
-    </div>
-</div>
 <script src="../assets/js/frameworks/jquery-3.6.1.min.js"></script>
 <script src="../assets/js/frameworks/bootstrap.min.js"></script>
+<script>
+ //nextID
+    generateOrderID(getLastOrderID());
+
+    function getLastOrderID() {
+        if (orderDB.length > 0) {
+            return orderDB[orderDB.length - 1].orderID;
+        } else {
+            return 'O00-001';
+        }
+    }
+
+    function generateOrderID(lastOrderID) {
+        const lastOrderNumber = parseInt(lastOrderID.split('-')[1]);
+        const nextOrderNumber = lastOrderNumber + 1;
+        const paddedOrderNumber = String(nextOrderNumber).padStart(3, '0');
+        const nextOrderID = `O00-${paddedOrderNumber}`;
+        $('#txtOrderID').val(nextOrderID);
+        return nextOrderID;
+    }
+
+    //////////////////////////////
+    // Get the current date
+    const currentDate = new Date();
+
+    // Format the current date as yyyy-MM-dd
+    const formattedDate = formatDate(currentDate);
+
+    $('#txtDate').val(formattedDate);
+
+    function formatDate(date) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
+
+    //////////////////////////////
+    // load all customer IDs
+    loadAllCusIDs();
+
+    var selectCusElement;
+
+    function loadAllCusIDs() {
+        selectCusElement = document.getElementById("selectCusID");
+
+        // Clear all existing options
+        while (selectCusElement.firstChild) {
+            selectCusElement.removeChild(selectCusElement.firstChild);
+        }
+
+        // Add data from the customerDB array
+        customerDB.forEach(function (customer) {
+            var optionElement = document.createElement("option");
+            optionElement.value = customer.id;
+            optionElement.textContent = customer.id;
+            selectCusElement.appendChild(optionElement);
+        });
+        $('#selectCusID').val('');
+    }
+
+    // Add event listener to the select element
+    selectCusElement.addEventListener("change", function () {
+        let selectedCustomerId = selectCusElement.value;
+        let selectedCustomer = customerDB.find(function (customer) {
+            return customer.id === selectedCustomerId;
+        });
+
+        if (selectedCustomer) {
+            $('#orderCustomerName').val(selectedCustomer.name);
+            $('#orderCustomerAddress').val(selectedCustomer.address);
+        } else {
+            $('#orderCustomerName').val("");
+            $('#orderCustomerAddress').val("");
+        }
+    });
+
+    /////////////////////////////////////////////
+    // Load all item codes
+    loadAllItemCodes();
+
+    var selectCodeElement;
+
+    function loadAllItemCodes() {
+        selectCodeElement = document.getElementById("selectItemCode");
+
+        // Clear all existing options
+        while (selectCodeElement.firstChild) {
+            selectCodeElement.removeChild(selectCodeElement.firstChild);
+        }
+
+        // Add data from the itemDB array
+        itemDB.forEach(function (item) {
+            var optionElement = document.createElement("option");
+            optionElement.value = item.code;
+            optionElement.textContent = item.code;
+            selectCodeElement.appendChild(optionElement);
+        });
+
+        $('#selectItemCode').val('');
+    }
+
+    // Add event listener to the select element
+    selectCodeElement.addEventListener("change", function () {
+        var selectedCode = selectCodeElement.value;
+        var selectedItem = itemDB.find(function (item) {
+            return item.code === selectedCode;
+        });
+
+        if (selectedItem) {
+            $('#txtItemName').val(selectedItem.itemName);
+            $('#txtItemPrice').val(selectedItem.unitPrice);
+            $('#txtQTYOnHand').val(selectedItem.qtyOnHand);
+
+        } else {
+            $('#txtItemName').val("");
+            $('#txtItemPrice').val("");
+            $('#txtQTYOnHand').val("");
+        }
+    });
+
+    ///////////////////////////////////////////////
+    // Calculate total
+    var orderQtyInput = $("#txtQty");
+
+    orderQtyInput.on("keyup", function () {
+        var price = parseFloat($('#txtItemPrice').val());
+        var orderQty = parseInt($("#txtQty").val());
+
+        if (!isNaN(price) && !isNaN(orderQty) && isValidOrderItemQty) {
+            var total = price * orderQty;
+            $("#TotalOfItem").val(total.toFixed(2));
+        } else {
+            $("#TotalOfItem").val("");
+        }
+    });
+
+    ////////////////////////////////////////////////
+    let cart = [];
+
+    $('#addToCart').click(function () {
+        // Get the item details
+        let itemCode = $('#selectItemCode').val();
+        let itemName = $('#txtItemName').val();
+        let price = $('#txtItemPrice').val();
+        let quantity = parseInt($('#txtQty').val()); // Convert to number
+        let total = parseFloat(price) * quantity;
+
+        // Check if the item already exists in the cart
+        let existingItem = cart.find(function (item) {
+            return item.itemCode === itemCode;
+        });
+
+        if (existingItem && isValidOrderItemQty) {
+            // Update the quantity and total of the existing item
+            existingItem.quantity += quantity;
+            existingItem.total += total;
+        } else {
+
+            let cartItem = {
+                itemCode: itemCode,
+                itemName: itemName,
+                price: price,
+                quantity: quantity,
+                total: total
+            };
+
+
+            if (isValidOrderItemQty) {
+                cart.push(cartItem);
+            } else {
+                $('#txtQty').focus();
+                return;
+            }
+        }
+
+
+        displayCartItems();
+
+        // clear qty and total
+        $('#txtQty').val("");
+        $('#TotalOfItem').val("");
+
+        isValidOrderItemQty = false;
+
+    });
+
+    //add to table
+    function displayCartItems() {
+        // Clear the table body
+        $('#cart').empty();
+
+        // Iterate over the cart items and add rows to the table
+        cart.forEach(function (item) {
+            let row = '<tr>' +
+                '<td>' + item.itemCode + '</td>' +
+                '<td>' + item.itemName + '</td>' +
+                '<td>' + item.price + '</td>' +
+                '<td>' + item.quantity + '</td>' +
+                '<td>' + item.total + '</td>' +
+                '</tr>';
+
+            $('#cart').append(row);
+        });
+
+        calculateTotal();
+        updateGrandTotal();
+    }
+
+
+    $('#cart').on('click', 'tr', function () {
+
+        let itemCode = $(this).find('td:eq(0)').text();
+        let itemName = $(this).find('td:eq(1)').text();
+        let price = $(this).find('td:eq(2)').text();
+        let quantity = $(this).find('td:eq(3)').text();
+
+        // Populate the input fields with the data
+        $('#selectItemCode').val(itemCode);
+        $('#txtItemName').val(itemName);
+        $('#txtItemPrice').val(price);
+        $('#txtQTYOnHand').val(quantity);
+    });
+
+    // Row selection
+    $('#cart').on('click', 'tr', function () {
+        $(this).toggleClass('selected');
+    });
+
+    // Remove selected row
+    $('#RemoveSelected').click(function () {
+        // Get the selected row
+        let selectedRow = $('#cart tr.selected');
+
+        if (selectedRow.length > 0) {
+            // Get the index of the selected row within the table
+            let selectedRowIndex = selectedRow.index();
+
+            // Remove the selected row from the table
+            selectedRow.remove();
+
+            // Remove the corresponding item from the cart array
+            cart.splice(selectedRowIndex, 1);
+            calculateTotal();
+            updateGrandTotal();
+        }
+    });
+
+    // get total
+    calculateTotal();
+
+    function calculateTotal() {
+        var tot = 0;
+
+        // Iterate over each row in the table
+        $('#cart tr').each(function () {
+            // Get the value of the "Total" column in the current row
+            let rowTotal = parseFloat($(this).find('td:eq(4)').text());
+
+            // Add the row total to the overall total
+            tot += rowTotal;
+        });
+
+        // Update the total field with the calculated total
+        $('#total').text((tot.toFixed(2)));
+    }
+
+    // grand total
+    // Keyup event handlers for cash and discount inputs
+    $('#txtCash, #txtDiscount').on('keyup', function () {
+        updateGrandTotal();
+        checkCashValidity();
+    });
+
+    function updateGrandTotal() {
+        // Get the values of cash, total, and discount
+        let cash = parseFloat($('#txtCash').val()) || 0;
+        let total = parseFloat($('#total').text()) || 0;
+        let discount = parseFloat($('#txtDiscount').val()) || 0;
+
+        // Calculate the grand total
+        let grandTotal = total - total * (discount / 100);
+        let rest = cash - grandTotal;
+
+        // Update the grand total input field
+        $('#subtotal').text(grandTotal.toFixed(2));
+        $('#txtBalance').val(rest.toFixed(2));
+    }
+
+    ///////////////////////////////////////////
+    // place order
+    $('#placeOrder').click(function() {
+        if(checkIsValidOrder()){
+            placeOrder();
+            changeTextFieldColorsToBack( [$('#txtCash'),$('#txtQty')]);
+        }else{
+            alert("Invalid Order!");
+        }
+    });
+
+    function placeOrder(){
+
+        let orderID = $('#txtOrderID').val();
+        let date = $('#txtDate').val();
+        let customerID = $('#selectCusID').val();
+        let discount = parseFloat($('#txtDiscount').val());
+        let total = $('#total').text();
+
+
+        let cart2 = [];
+
+        $('#cart tr').each(function() {
+            let itemCode = $(this).find('td:first-child').text();
+            let quantity = parseInt($(this).find('td:nth-child(4)').text());
+            let item = itemDB.find(item => item.code === itemCode);
+            if (item) {
+                cart2.push({
+                    item: item,
+                    qty: quantity
+                });
+            }
+        });
+
+
+        let customer = customerDB.find(customer => customer.id === customerID);
+
+
+        let order = {
+            orderID: orderID,
+            date: date,
+            customer: customer,
+            cart: cart2,
+            discount: discount,
+            total: total
+        };
+
+        orderDB.push(order);
+        //console.log(orderDB);
+
+        alert("Order successfully placed!")
+
+        clearPlaceOrderFields();
+
+
+        cart2 = [];
+        cart =[];
+    }
+
+    function clearPlaceOrderFields() {
+        // Clear the input fields.
+        $('#selectCusID').val('');
+        $('#orderCustomerName').val('');
+        $('#orderCustomerAddress').val('');
+
+        $('#selectItemCode').val('');
+        $('#txtItemName').val('');
+        $('#txtQTYOnHand').val('');
+        $('#txtItemPrice').val('');
+        $('#txtQty').val('');
+        $('#TotalOfItem').val('');
+
+        $('#discount').val('');
+        $('#total').text('00.0');
+        $('#txtCash').val('');
+        $('#subtotal').text('00.0');
+        $('#txtBalance').val('');
+
+
+        $('#cart').empty();
+
+        generateOrderID(getLastOrderID());
+    }
+</script>
+
 </body>
 </html>
